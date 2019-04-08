@@ -21,6 +21,7 @@ namespace BaoThanhShopAPI2.Controllers
                 return Ok(new List<VProduct>());
 
             var products = db.VProducts.Where(p => p.GroupCode.Equals(product.GroupCode)).ToList();
+
             return Ok(products);
         }
     }
