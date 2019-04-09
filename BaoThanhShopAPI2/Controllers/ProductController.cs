@@ -1,9 +1,6 @@
 ﻿using BaoThanhShopAPI2.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BaoThanhShopAPI2.Controllers
@@ -13,12 +10,19 @@ namespace BaoThanhShopAPI2.Controllers
         [HttpGet]
         public IHttpActionResult GetProducts(string productCode)
         {
+            if (string.IsNullOrEmpty(productCode))
+            {
+                return BadRequest("Tham số truyền vào không hợp lệ");
+            }
+
             Entities db = new Entities();
 
             var product = db.Products.FirstOrDefault(p => p.ProductCode.Equals(productCode));
 
             if (product == null)
-                return Ok(new List<VProduct>());
+            {
+                return BadRequest("Mã sản phẩm không tồn tại");
+            }
 
             var products = db.VProducts.Where(p => p.GroupCode.Equals(product.GroupCode)).ToList();
 
