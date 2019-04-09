@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace BaoThanhShopAPI2.Controllers
 {
     public class ProductController : ApiController
     {                
+        [HttpGet]
+        public IHttpActionResult Get()
+        {
+            return NotFound();
+        }
+
         [HttpGet]
         public IHttpActionResult GetProducts(string productCode)
         {
